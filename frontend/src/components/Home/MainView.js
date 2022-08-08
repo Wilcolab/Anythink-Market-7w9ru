@@ -8,6 +8,7 @@ const YourFeedTab = (props) => {
   if (props.token) {
     const clickHandler = (ev) => {
       ev.preventDefault();
+      console.log(props);
       props.onTabClick("feed", agent.Items.feed, agent.Items.feed());
     };
 

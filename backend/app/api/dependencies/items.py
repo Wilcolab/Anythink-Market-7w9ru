@@ -24,7 +24,7 @@ def get_items_filters(
     favorited: Optional[str] = None,
     limit: int = Query(DEFAULT_ITEMS_LIMIT, ge=1),
     offset: int = Query(DEFAULT_ITEMS_OFFSET, ge=0),
-    title : Optional[str] = None,
+    title : Optional[str] = "",
 ) -> ItemsFilters:
     return ItemsFilters(
         tag=tag,
