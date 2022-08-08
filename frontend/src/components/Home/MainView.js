@@ -4,10 +4,12 @@ import agent from "../../agent";
 import { connect } from "react-redux";
 import { CHANGE_TAB } from "../../constants/actionTypes";
 
+
 const YourFeedTab = (props) => {
   if (props.token) {
     const clickHandler = (ev) => {
       ev.preventDefault();
+      console.log(props)
       props.onTabClick("feed", agent.Items.feed, agent.Items.feed());
     };
 
@@ -57,6 +59,7 @@ const TagFilterTab = (props) => {
     </li>
   );
 };
+
 
 const mapStateToProps = (state) => ({
   ...state.itemList,
