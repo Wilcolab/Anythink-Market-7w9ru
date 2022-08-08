@@ -109,6 +109,7 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
         limit: int = 20,
         offset: int = 0,
         requested_user: Optional[User] = None,
+        title: Optional[str] = None,
     ) -> List[Item]:
         query_params: List[Union[str, int]] = []
         query_params_count = 0
@@ -134,8 +135,11 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
             ).as_(
                 SELLER_USERNAME_ALIAS,
             ),
+        ).where(
+            items.title.like("%" + title + "%")
         )
         # fmt: on
+
 
         if tag:
             query_params.append(tag)
@@ -157,6 +161,13 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
             )
             # fmt: on
 
+        if title:
+            pass
+            # query_params.append(title)
+            # query_params_count += 1
+        
+            # query = query.where( None)
+            
         if seller:
             query_params.append(seller)
             query_params_count += 1
@@ -196,7 +207,7 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
                 ),
             )
             # fmt: on
-
+        
         query = query.limit(Parameter(query_params_count + 1)).offset(
             Parameter(query_params_count + 2),
         )
