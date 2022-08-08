@@ -4,19 +4,35 @@ from sqlalchemy import *
 from faker import Faker
 from urllib.parse import urlparse
 
+import bcrypt
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
 db_uri = os.environ['DATABASE_URL']
 engine = create_engine(db_uri)
 connection = engine.connect()
 trans = connection.begin()
 
+
+connection.execute("delete from users")
+connection.execute("delete from items")
+connection.execute("delete from comments")
+
+
+# user_insert_query = """ INSERT INTO users (username, email, salt, hashed_password) VALUES (%s,%s,%s,%s)"""
+# user_to_insert = ("test", "test@test.com", "salllttt", pwd_context.hash("test") )
+# connection.execute(user_insert_query, user_to_insert)
+
 Faker.seed(1234)
 fake = Faker()
-for i in range(100):
-    user_insert_query = """ INSERT INTO users (username, email, salt) VALUES (%s,%s,%s)"""
-    user_to_insert = (
-        fake.unique.first_name(), fake.ascii_company_email(), fake.hexify(text='salting^^:^^:^^:^^:^^:^^'))
-    connection.execute(user_insert_query, user_to_insert)
-    print(i, "Record inserted successfully into users table")
+# for i in range(100):
+#     user_insert_query = """ INSERT INTO users (username, email, salt, hashed_password) VALUES (%s,%s,%s,%s)"""
+#     user_to_insert = (
+#         fake.unique.first_name(), fake.ascii_company_email(), fake.hexify(text='salting^^:^^:^^:^^:^^:^^'), fake.ascii_company_email())
+#     connection.execute(user_insert_query, user_to_insert)
+#     print(i, "Record inserted successfully into users table")
 
 
 # get seller_id from users table

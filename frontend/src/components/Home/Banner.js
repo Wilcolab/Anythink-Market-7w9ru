@@ -8,6 +8,7 @@ const Banner = () => {
         <img src={logo} alt="banner" />
         <div>
           <span id="get-part">A place to get</span>
+          <input id="search-box"></input>
           <span> the cool stuff.</span>
         </div>
       </div>
