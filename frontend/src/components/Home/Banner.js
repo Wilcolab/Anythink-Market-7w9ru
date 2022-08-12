@@ -1,13 +1,6 @@
 import React from "react";
 import logo from "../../imgs/logo.png";
-
-export const SearchBox = (props) => {
-  const changeHandler = (ev) => {
-    ev.preventDefault();
-    console.log(ev.target.value);
-  };
-  return <input id="search-box" onChange={changeHandler}></input>;
-};
+import SearchBox from "../SearchBox";
 
 const Banner = () => {
   return (
